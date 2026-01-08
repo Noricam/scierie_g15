@@ -160,3 +160,41 @@ li {
 .reussite{
     color:green;	
 }
+
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.slider, .slider img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+* { outline: 1px solid red; }
+/* Desktop: menu visible */
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Bouton caché en desktop */
+.menu-btn {
+  display: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .menu-btn { display: inline-flex; }
+  .nav-links { display: none; flex-direction: column; }
+  .nav-links.active { display: flex; }
+}

@@ -19,24 +19,23 @@ session_start();
 <body>	
 <!--*************** MENU ***************-->
 <nav class="navbar">
-	<li class="toggle">
-		<ul class ="toggle-item"><i class="fa fa-bars menu" aria-hidden="true"> </i></ul>
-	</li>
+	<button class="menu-btn" type="button" aria-label="Ouvrir/fermer le menu" aria-expanded="false">
+		<!-- SVG burger (pas besoin Font Awesome) -->
+		<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+		<path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" fill="none"/>
+		</svg>
+  	</button>
    <ul class="nav-links">
       	<li class="nav-item"><a href="index.php">ACCUEIL</a></li>
       	<li class="nav-item"><a href="produits.php">LES PRODUITS</a></li>
 	  	<li class="nav-item"><a href="video.php">VIDEO</a></li>
 		<li class="nav-item"><a href="contact.php">NOUS CONTACTER</a></li>
-<?php 
-	if (isset($_SESSION['id'])) {	
-		echo "<li class='nav-item'><a href='administration.php'>ADMINISTRATION</a></li>";
-	}
-	if(isset($_SESSION['id'])) {
-		echo "<li class='nav-item'><a href='deconnexion.php'>DECONNEXION</a></li>";
-	}else{
-		echo "<li class='nav-item'><a href='connexion.php'>CONNEXION</a></li>";
-	}
-?>
+		<?php if (isset($_SESSION['id'])): ?>
+			<li class="nav-item"><a href="administration.php">ADMINISTRATION</a></li>
+			<li class="nav-item"><a href="deconnexion.php">DECONNEXION</a></li>
+		<?php else: ?>
+			<li class="nav-item"><a href="connexion.php">CONNEXION</a></li>
+		<?php endif; ?>
     </ul>
 
 	<img src="./images/scierie.gif" style="width:70px; margin:5px;">
@@ -44,17 +43,18 @@ session_start();
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript">
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.querySelector('.menu-btn');
+    const nav = document.getElementById('navLinks');
+    if (!btn || !nav) return;
 
-	$(document).ready(function(){
-
-		$('.menu').click(function(){
-			
-			$('ul').toggleClass('active');
-		})
-	})
-
-</script> 
+    btn.addEventListener('click', () => {
+      const open = nav.classList.toggle('active');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+</script>
 <!--*************** END MENU ***************-->
 	<section>
 	<?php 
