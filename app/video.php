@@ -1,35 +1,97 @@
 <?php
-session_start();
+require __DIR__ . '/bootstrap.php';
 ?>
 <!DOCTYPE html>
+
 <html lang="fr">
 	<head>
-		<title>Scierie Gineste - Vidéo</title>
-		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+		<title>TRUC</title>
+		<meta charset="utf-8">
+  		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="video">
+		<link rel="stylesheet" href="/style.css">
+		<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 	</head>
 
 	<body>
-<?php include("includes/menu.php"); // Optimisation : inclusion du menu centralisé ?>
+	<!--*************** MENU ***************-->
+	<nav class="navbar">
+		<button class="menu-btn" type="button" aria-label="Ouvrir/fermer le menu" aria-expanded="false">
+			<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+			<path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" fill="none"/>
+			</svg>
+  		</button>
+		<ul class="nav-links" id="navLinks">
+			<li class="nav-item"><a href="index.php">ACCUEIL</a></li>
+			<li class="nav-item"><a href="produits.php">LES PRODUITS</a></li>
+			<li class="nav-item"><a href="video.php">VIDEO</a></li>
+			<li class="nav-item"><a href="contact.php">NOUS CONTACTER</a></li>
+			<?php if (isset($_SESSION['id'])): ?>
+				<li class="nav-item"><a href="administration.php">ADMINISTRATION</a></li>
+				<li class="nav-item"><a href="deconnexion.php">DECONNEXION</a></li>
+			<?php else: ?>
+				<li class="nav-item"><a href="connexion.php">CONNEXION</a></li>
+			<?php endif; ?>
+		</ul>
+	
+		<img src="/images/scierie.gif" alt="Logo de la scierie" style="width:70px; margin:5px;">
 
-		<main>
-			<div style="text-align: center; width: 100%; padding: 20px;">
-				<h1>Présentation de la Scierie</h1>
-				
-				<div class="video-responsive-container">
-					<iframe 
-						class="video-iframe"
-						src="https://www.youtube.com/embed/dbHXPnhCicI?autoplay=1&mute=1" 
-						title="YouTube video player" 
-						frameborder="0" 
-						allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-						allowfullscreen>
-					</iframe>
-				</div>
-			</div>
-		</main>
+	</nav>
 
-<?php include("includes/footer.php"); // Optimisation : inclusion du pied de page ?>
+<!-- Requete JQuery initiale supprimée pour améliorer la performance et l'accessibilité
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+
+		$('.menu').click(function(){
+			
+			$('ul').toggleClass('active');
+		})
+	})
+
+</script>
+-->
+
+<!-- Remplacement par un JavaScript natif pour une meilleure performance et accessibilité -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.querySelector('.menu-btn');
+    const nav = document.getElementById('navLinks');
+    if (!btn || !nav) return;
+
+    btn.addEventListener('click', () => {
+      const open = nav.classList.toggle('active');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+</script>
+
+<!--*************** END MENU ***************-->
+
+  	<main>
+		<div class="video-container" style="text-align:center;">
+		<iframe
+			class="video-iframe"
+			src="https://www.youtube-nocookie.com/embed/dbHXPnhCicI"
+			title="Vidéo de présentation"
+			loading="lazy"
+			frameborder="0"
+			allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+			allowfullscreen>
+		</iframe>
+		</div>
+  	</main>
+
+<!--*************** PIED DE PAGE ***************-->
+	<footer id="footer">
+		<ul class="footer-links">
+			<li class="footer-item">©Projet 3iL</li>
+			<li class="footer-item"><a href="https://www.facebook.com/Scierie-du-Fargal-613509152159633/" target="_blank"><img id="logo" src="/images/facebook.png" alt="Logo facebook" loading="lazy" decoding="async"></a></li>
+			<li class="footer-item">Site test</li>
+		</ul>
+	</footer>
+<!--*************** PIED DE PAGE ***************-->
+
 	</body>
 </html>
