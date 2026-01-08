@@ -81,7 +81,7 @@ require __DIR__ . '/bootstrap.php';
 	</ul>
 </footer>
 <!--*************** PIED DE PAGE ***************-->
-	<script src="scripts/initListeProduits.js"></script>
+	<script src="/scripts/initListeProduits.js"></script>
 </body>
 
 </html>

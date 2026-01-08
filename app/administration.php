@@ -220,9 +220,9 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 </footer>
 <!--*************** PIED DE PAGE ***************-->
 	
-	<script src="scripts/initSelectModifProduit.js"></script>
-	<script src="scripts/initSelectModifAccueil.js"></script>
-	<script src="scripts/initSelectSuprProduit.js"></script>
+	<script src="/scripts/initSelectModifProduit.js"></script>
+	<script src="/scripts/initSelectModifAccueil.js"></script>
+	<script src="/scripts/initSelectSuprProduit.js"></script>
 </body>
 
 </html>

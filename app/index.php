@@ -89,7 +89,7 @@ require __DIR__ . '/bootstrap.php';
 	</ul>
 </footer>
 <!--*************** PIED DE PAGE ***************-->
-	<script type="text/javascript" src="scripts/slider.js"></script>
+	<script type="text/javascript" src="/scripts/slider.js"></script>
 
 </body>
 
