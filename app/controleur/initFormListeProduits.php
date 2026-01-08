@@ -1,31 +1,36 @@
-﻿<?php
+<?php
 session_start();
+require("../metier/DB_connector.php");
+require("../metier/Produit.php");
+require("../Dao/ProduitDao.php");
 
-require __DIR__ . "/../metier/DB_connector.php";
-require __DIR__ . "/../metier/Produit.php";
-require __DIR__ . "/../Dao/ProduitDao.php";
-
+// Ouverture de la connexion BDD
 $cnx = new DB_connector();
 $jeton = $cnx->openConnexion();
 
+// Création du manager permettant les actions en BDD
 $produitManager = new ProduitDao($jeton);
+
 $produits = $produitManager->getList();
 
-// Petite fonction utilitaire anti-XSS
-function e(string $s): string {
-  return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+for ($i = 0; $i < count($produits); $i++) {
+    
+    // Construction de la structure HTML
+    $produit = "<ul class='main-list'>";
+    
+    // Protection XSS sur le titre
+    $produit .= "<li class='main-item'><p class='titre'>" . htmlspecialchars($produits[$i]->getTitre(), ENT_QUOTES, 'UTF-8') . "</p></li>";
+    
+    $produit .= "<li class ='main-item'><ul class ='sub-list'>";
+    
+    // Protection XSS sur la description
+    $produit .= "<li class='sub-item'><p class='texte'>" . htmlspecialchars($produits[$i]->getDescr(), ENT_QUOTES, 'UTF-8') . "</p></li>";
+    
+    // Protection XSS sur le nom de l'image
+    $produit .= "<li class='sub-item'><img class='image' src='images/" . htmlspecialchars($produits[$i]->getImg(), ENT_QUOTES, 'UTF-8') . "'></li>";        
+    
+    $produit .= "</ul></li></ul>";
+    
+    echo $produit;
 }
-
-foreach ($produits as $p) {
-  $titre = e($p->getTitre());
-  $descr = e($p->getDescr());
-
-  // Nom de fichier image: on évite les chemins chelous
-  $img = basename((string)$p->getImg());
-
-  echo "<article class='produit'>";
-  echo "  <h2 class='titre'>{$titre}</h2>";
-  echo "  <p class='texte'>{$descr}</p>";
-  echo "  <img class='image' src='/images/{$img}' alt='' loading='lazy' decoding='async'>";
-  echo "</article>";
-}
+?>
