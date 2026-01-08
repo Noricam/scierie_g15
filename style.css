@@ -173,16 +173,14 @@ video, iframe {
   display: block;
 }
 
-.video-responsive-container {
+.video-container {
+    width: 100%;
+    max-width: 1000px; /* Ajustez cette valeur pour la taille maximale souhaitée */
+    margin: 20px auto;
     position: relative;
-    padding-bottom: 56.25%; /* Ratio 16:9 standard */
-    /* Si vous trouvez que c'est trop plat, essayez 65% ou 75% (4:3) */
+    padding-bottom: 56.25%; /* Ratio 16:9 */
     height: 0;
     overflow: hidden;
-    max-width: 90px; /* Taille maximum de la vidéo sur grand écran */
-    margin: 0 auto;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
-    border-radius: 8px;
 }
 
 .video-iframe {
