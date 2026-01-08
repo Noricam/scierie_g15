@@ -97,7 +97,7 @@ $_SESSION['errId'] = '';
       </li>
     </ul>
 
-    <!-- Messages -->
+    <!-- Messages -->	
     <?php if ($errCnx || $creationOk || $creationNok): ?>
       <p class="err" aria-live="polite">
         <?= e($errCnx ?: ($creationOk ?: $creationNok)) ?>

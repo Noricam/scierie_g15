@@ -217,3 +217,17 @@ html, body {
   .nav-links { display: none; flex-direction: column; }
   .nav-links.active { display: flex; }
 }
+.navbar {
+  position: relative;
+  z-index: 10;
+}
+.forms {
+  margin-top: 2.5rem;
+}
+
+.onglets {
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
+  padding-top: 0.5rem;
+}

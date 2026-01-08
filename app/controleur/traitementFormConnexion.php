@@ -26,7 +26,7 @@ if (isset($_GET['idUtil']) && isset($_GET['mdpUtil'])) {
     $userId = $_GET['idUtil'];
     $mdp = $_GET['mdpUtil'];
 	
-    // Note: On utilise MD5 car c'est le format actuel de votre BDD 
+    // Note: On utilise MD5 car c'est le format actuel de notre BDD 
     $jetonExistance = $userManager->userExist($userId, MD5($mdp));
 
     if ($jetonExistance) {
