@@ -27,7 +27,7 @@ for ($i = 0; $i < count($produits); $i++) {
     $produit .= "<li class='sub-item'><p class='texte'>" . htmlspecialchars($produits[$i]->getDescr(), ENT_QUOTES, 'UTF-8') . "</p></li>";
     
     // Protection XSS sur le nom de l'image
-    $produit .= "<li class='sub-item'><img class='image' alt=" . htmlspecialchars($produits[$i]->getTitre() . " src='/images/" . htmlspecialchars($produits[$i]->getImg(), ENT_QUOTES, 'UTF-8') . "'></li>";        
+    $produit .= "<li class='sub-item'><img class='image' alt=" . htmlspecialchars($produits[$i]->getTitre(), ENT_QUOTES, 'UTF-8') . " src='/images/" . htmlspecialchars($produits[$i]->getImg(), ENT_QUOTES, 'UTF-8') . "'></li>";        
     
     $produit .= "</ul></li></ul>";
     
