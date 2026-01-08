@@ -1,6 +1,6 @@
 ﻿<?php
 /**
- * Gestionnaire de la classe user
+ * Gestionnaire de la classe user sécurisé contre les injections SQL
  */
 class userDao {
 	
@@ -15,70 +15,104 @@ class userDao {
     }
      
 	/**
-	 * Recherche d'un utilisateur en ce basant sur le couple ident/mdp
+	 * Recherche d'un utilisateur en se basant sur le couple ident/mdp
+     * Utilise des requêtes préparées pour la sécurité 
 	 */
     public function userExist($userId, $userPwd) {
+        // Préparation de la requête avec des marqueurs "?" 
+		$req = "SELECT userId FROM user WHERE userId = ? AND userPwd = ?";
+		$stmt = $this->_db->prepare($req);
 
-		$req = "SELECT userId FROM user WHERE userId = '$userId' and userPwd = '$userPwd'";
-		$stmt = $this->_db->query($req);
+        // Exécution sécurisée : les variables ne sont jamais concaténées directement 
+        $stmt->execute([$userId, $userPwd]);
 
 		if ($donnees = $stmt->fetch()) {  
 		    return true;
-		}else{
+		} else {
 			return false;
 		}
     }
 	
 	/**
-	 * Recherche de l'existance d'un id
+	 * Recherche de l'existence d'un identifiant
 	 */
     public function idExist($userId) {
-		$req = "SELECT userId FROM user WHERE userId = '$userId'";
-		$stmt = $this->_db->query($req);
+		$req = "SELECT userId FROM user WHERE userId = ?";
+		$stmt = $this->_db->prepare($req);
+        $stmt->execute([$userId]);
 
 		if ($donnees = $stmt->fetch()) {  
 		    return true;
-		}else{
+		} else {
 			return false;
 		}   
     }
+
+    /**
+     * Récupération d'un utilisateur par son ID
+     */
+    public function get($userId) {
+        $req = "SELECT * FROM user WHERE userId = ?";
+        $stmt = $this->_db->prepare($req);
+        $stmt->execute([$userId]);
+
+        if ($donnees = $stmt->fetch()) {
+            return new User($donnees);
+        }
+        return null;
+    }
     
-	
-   /** 
-    * Récupération de tous les users de la BDD
+	/** * Récupération de tous les utilisateurs de la BDD
     */
     public function getList() {
-       
-        $rqt = $this->_db->prepare('SELECT *
-		                           FROM user');
+        $users = [];
+        $compteur = 0;
+        
+        $rqt = $this->_db->prepare('SELECT * FROM user');
         $rqt->execute();
 	
         while ($donnees = $rqt->fetch()) {
-            $users[$compteur] = new user($donnees);
+            $users[$compteur] = new User($donnees);
 		    $compteur ++;
         }
         return $users;
     }
 	
-     
 	/**
 	 * Ajout d'un nouvel utilisateur à la BDD
 	 */
-   public function add($user) {
-  
-		$rqt = $this->_db->prepare('INSERT INTO user(userId, userPwd)
-									VALUES(?,?)');
+    public function add($user) {
+		$rqt = $this->_db->prepare('INSERT INTO user(userId, userPwd) VALUES(?,?)');
 		$rqt->bindValue(1, $user->getUserId());
 		$rqt->bindValue(2, $user->getUserPwd());
 
-    	$rqt->execute();
+    	return $rqt->execute();
 	}
+
+    /**
+     * Mise à jour d'un utilisateur (ex: changement de mot de passe)
+     */
+    public function update($userUpdate) {
+        $rqt = $this->_db->prepare('UPDATE user SET userPwd = ? WHERE userId = ?');
+        return $rqt->execute([
+            $userUpdate->getUserPwd(),
+            $userUpdate->getUserId()
+        ]);
+    }
+
+    /**
+     * Suppression d'un utilisateur
+     */
+    public function delete($user) {
+        $rqt = $this->_db->prepare('DELETE FROM user WHERE userId = ?');
+        return $rqt->execute([$user->getUserId()]);
+    }
   
     /**
-	 * Modifieur sur l'instance pdo de connexion 
+	 * Modifieur sur l'instance PDO de connexion 
 	 */
-     public function setDb(PDO $db) {
+    public function setDb(PDO $db) {
         $this->_db = $db;
     }
-	
 }
+?>
