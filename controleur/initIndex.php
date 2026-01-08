@@ -1,6 +1,6 @@
 <?php
     /* Connexion à la bdd */
-    $con = mysqli_connect("localhost", "root", "", "scierie");
+    $con = mysqli_connect("localhost", "scierie", "dVR&6jsY3391DYBaUysK", "scierie");
 
     if (mysqli_connect_errno()){
         echo "Erreur de connexion: " . mysqli_connect_error();
