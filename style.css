@@ -160,3 +160,14 @@ li {
 .reussite{
     color:green;	
 }
+
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
