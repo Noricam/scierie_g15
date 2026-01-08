@@ -1,0 +1,105 @@
+﻿.forms {
+    background: #fff;
+    box-shadow: 0 0 3px #000;
+    margin: 10% 10%;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+}
+
+.forms h1 {
+    padding: 0 0 20px 0;
+    font-size: 28px;
+    color: #666;
+    font-weight: lighter;
+    text-align: center;
+    margin-bottom: 6%;
+}
+
+.forms form { 
+    padding: 30px; 
+}
+
+#sinscrire { 
+    display: none; 
+}
+
+.forms .onglets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.forms .onglets:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.forms .onglets li a {
+    display: block;
+    text-decoration: none;
+    padding: 15px;
+    background: #e5e6e7;
+    color: #888;
+    font-size: 20px;
+    float: left;
+    width: 45.7%;
+    text-align: center;
+    border-top: 3px solid transparent;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.forms .onglets li a:hover {
+    background: #dedfdf;
+    color: #666;
+}
+
+.forms .onglets .active a {
+    background: #fff;
+    color: #444;
+    border-top: 3px solid red;
+}
+
+.forms input {
+    display: block;
+    width: 80%;
+    margin-bottom: 10px;
+    margin-left: 5%;
+
+}
+
+.forms label {
+    font-size: 20px;
+    font-weight: normal;
+    color: #666;
+    margin-bottom: 5px;
+    margin-top: 3%;
+    display: block;
+        margin-left: 5%;
+}
+
+.forms .button {
+    background-color: #53af57;
+    color : white;
+    margin-left: 25%;
+    margin-top: 12%;
+    width: 50%;
+}
+
+.forms .button:hover, .button:focus { 
+    background: #00802b; 
+    cursor: pointer;
+}
+
+.text-p { 
+    text-align: center; 
+    margin-top: 3%;
+}
+
+.text-p a { 
+    color: #1383ea; 
+}

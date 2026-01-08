@@ -1,0 +1,225 @@
+
+/* Bloc contenant div de gauhe et div de droite */
+.contactContainer{
+	width: 100%;
+	height : 100%;
+	max-width: 65%;
+	user-select: none;
+	box-shadow: 0px 0px 3px 1px #00000078;
+	padding : 1%;
+	box-sizing: border-box;
+	margin : 0 auto;
+	background-color: white;
+	margin-top: 5%;
+	display: table;
+	color : #303030;
+	flex-grow: 1;
+}
+
+@media (max-width: 1000px){
+	.contactContainer{
+		max-width: 80%;
+	}
+}
+
+@media (max-width: 800px){
+	.contactContainer {	
+		max-width: 90%;
+	}
+	
+}
+
+
+/* Titre du bloc total */
+.contactContainer h1 {
+	font-family: Verdana, Geneva, sans-serif;
+	font-weight: normal;
+	font-size : 28px;
+	padding-bottom: 4%;
+}
+
+
+/* Bloc de gauche */
+.contactContainer .leftContainer{
+	width: 60%;
+	float: left;
+	clear: both;
+	margin-left: 3%;
+}
+
+
+/* Formulaire dans bloc de gauche */
+.contactContainer .leftContainer form{
+	padding-top: 4%;
+}
+
+/* Les labels du bloc de gauche */
+.contactContainer .leftContainer .nameEmail label, .contactContainer .leftContainer .message .subject label{
+	margin: auto;
+}
+
+/* Input du bloc de gauche */
+.contactContainer .leftContainer .nameEmail input{
+	width: 38%;
+	display: inline;
+	clear: both;
+	margin-top: 1%;
+}
+
+/* Zone de texte pour le message */
+.contactContainer .leftContainer .message  textarea{
+	width: 84%;
+	height: 165px;
+	clear: both;
+	resize: none;
+	margin-top: 1%;
+}
+.subject  textarea{
+	width: 84%;
+	clear: both;
+	resize: none;
+	margin-top: 1%;
+	padding: 10px 10px 0px 10px;
+}
+
+.contactContainer .leftContainer .message .subject textarea:focus{
+  outline:none;
+  box-shadow: 0 0 3px rgba(34, 191, 136, 1);
+  border: 1px solid rgba(34, 191, 136, 1);
+}
+
+/* Input Email*/
+.contactContainer .leftContainer .nameEmail .inputEmail{
+	margin-left : 40%;
+}
+
+.contactContainer .leftContainer .message .subject{
+	margin-top : 4%;
+}
+
+/* Input mail */
+input[name=inputEmail]{
+	margin-left: 5%; 
+}
+
+/*Submit button*/
+.contactContainer .leftContainer .subForm{
+	display: inline-block;
+	border-radius: 4px;
+    border-color: #54b454;
+	background-color: #54b454;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 13px;
+	padding: 5px;
+	width: 95px;
+	transition: all 0.5s;
+	cursor: pointer;
+	float : right;
+	margin-right: 17%;
+	margin-top: 2%;
+}
+
+.contactContainer .leftContainer .subForm:hover{
+    background-color: #54b454;
+    border-color: #54b454; 
+}
+
+
+/* Bloc de droite */
+.contactContainer .rightContainer{
+	background-color: #F8F8F8;
+	width: 25%;
+	float: right;
+	padding: 1%;
+	height: 90%;
+	margin-right: 10px;
+}
+
+@media (max-width: 1400px){
+	.contactContainer .rightContainer{
+		width: 30%;
+	}
+}
+@media (max-width: 1200px){
+	.contactContainer .rightContainer{
+		margin-right: 0px;
+		width: 35%;
+	}	
+}
+
+
+/* Titres des rubriques */
+.contactContainer .rightContainer h2{
+	color: #54b454;
+	font-size : 18px;
+	padding-top: 7%;
+	padding-left: 7%;
+}
+
+/* Description sous le titre du bloc total */
+.contactContainer p{
+	padding-top:2%;
+}
+
+/* Adresse */
+.contactContainer .rightContainer .adresse ul li{
+	padding-left: 7%;
+}
+
+/* 1er élément de l'adresse */
+.contactContainer .rightContainer .adresse ul li:first-child{
+	padding-top: 2%;
+}
+
+/* texte des différentes rubriqsues de droite, hors adresse */
+.contactContainer .rightContainer p{
+	padding-left: 7%;
+}
+
+.contactContainer .rightContainer .reseauxSociaux{
+	padding-top: 2%;
+}
+
+.contactContainer .rightContainer .reseauxSociaux .facebook a img{
+	background-color: white;
+	border-radius: 10%;
+	height: 8%;
+	width: 8%;
+	margin-top: 4%;
+	margin-left: 7%;
+}
+
+.contactContainer .rightContainer .reseauxSociaux .twitter a img{
+	background-color: white;
+	border-radius: 10%;
+	height: 8%;
+	width: 8%;
+	margin-top: 4%;
+}
+
+.reseauxSociaux .logo li{
+    display: inline;
+    padding-left: 6px;
+}
+
+.contactContainer .rightContainer .reseauxSociaux .facebook a img:hover {
+	-webkit-animation: rotation 0.3s linear; 
+
+}
+
+.contactContainer .rightContainer .reseauxSociaux .twitter a img:hover {
+	-webkit-animation: rotation 0.3s linear;
+
+}
+
+/* Rotation du logo facebook */
+@-webkit-keyframes rotation {
+		from {
+				-webkit-transform: rotate(0deg);
+		}
+		to {
+				-webkit-transform: rotate(359deg);
+		}
+}
+
