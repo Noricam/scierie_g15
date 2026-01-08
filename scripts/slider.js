@@ -1,118 +1,141 @@
+let slideIndex = 0;
+let slides = [];
+let points = [];
+let texteDescriptif = null;
+let timer = null;
 
-$(document).ready(function(){
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const res = await fetch('data.xml', { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status} sur data.xml`);
 
-    //  récupération des images du fichier xml
-    $.ajax({
-        type: "GET",
-        url: "data.xml",
-        dataType : "xml",
-        success : recupXmlSlider
-    });
+    const xmlText = await res.text();
+    const xml = new DOMParser().parseFromString(xmlText, 'application/xml');
 
+    // si data.xml est invalide, le parser crée un <parsererror>
+    if (xml.querySelector('parsererror')) {
+      throw new Error('data.xml invalide (XML mal formé)');
+    }
+
+    recupXmlSlider(xml);
+  } catch (e) {
+    console.error('Slider: impossible de charger data.xml', e);
+  }
 });
 
-function decalageSlide(n){
-    var idx, courant, suivant;
+function recupXmlSlider(xml) {
+  const slider = document.getElementById('slider');
+  if (!slider) return;
 
-    var decalageSlideAnimClass={
-        forcourant:"",
-        forsuivant:""
-    }
-    var slideTextAnimClass;
+  const slideNodes = Array.from(xml.querySelectorAll('slide'));
 
-    if(n > slideIndex){
+  slideNodes.forEach((s) => {
+    const imgSrc = (s.querySelector('image')?.textContent || '').trim();
+    const desc = (s.querySelector('description')?.textContent || '').trim();
 
-        if(n >= slides.length){
-            n=0;
-        }
+    const wrap = document.createElement('div');
+    wrap.className = 'slide';
 
-        decalageSlideAnimClass.forcourant="decalageGaucheSlideCourante";
-        decalageSlideAnimClass.forsuivant="decalageGaucheSlideSuivante";
-        slideTextAnimClass="decalageTexteHaut";
-    } 
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.alt = '';
+    img.loading = 'lazy';
+    img.decoding = 'async';
 
-    else if(n < slideIndex){
-        if (n<0){
-            n=slides.length-1;
-        }
+    const p = document.createElement('p');
+    p.className = 'texteDescriptif';
+    p.textContent = desc;
 
-        decalageSlideAnimClass.forcourant="decalageDroiteSlideCourante";
-        decalageSlideAnimClass.forsuivant="decalageDroiteSlideSuivante";
-        slideTextAnimClass="decalageTexteBas";
-    }
+    wrap.appendChild(img);
+    wrap.appendChild(p);
+    slider.appendChild(wrap);
+  });
 
-    if(n != slideIndex){
-        suivant=slides[n];
-        courant=slides[slideIndex];
-
-        for(idx=0; idx<slides.length; idx++){
-            slides[idx].className="slide";
-            slides[idx].style.opacity=0;
-            points[idx].classList.remove("active");
-        }
-
-        courant.classList.add(decalageSlideAnimClass.forcourant);
-        suivant.classList.add(decalageSlideAnimClass.forsuivant);
-
-        points[n].classList.add("active");
-        slideIndex=n;
-    }
-
-    texteDescriptif.style.display="none";
-    texteDescriptif.className="texteDescriptif" + slideTextAnimClass;
-    texteDescriptif.innerText = slides[n].querySelector(".texteDescriptif").innerText;
-    texteDescriptif.style.display = "block";
+  ImagesInit();
+  setTimer();
 }
 
-function recupXmlSlider(xml){
-
-    $(xml).find("slide").each(function(){
-
-        $('#slider').append('<div class="slide"><img src="' + $(this).find("image").text() +  '"/><p class="texteDescriptif">' + $(this).find("description").text() + '</p></div>');
-    });
-
-    var slideIndex, slides, points, texteDescriptif;
-
-    ImagesInit();
-    setTimer();
+function decalage(idx) {
+  decalageSlide(slideIndex + idx);
 }
 
-function decalage(idx){
-    decalageSlide(slideIndex + idx);
+function decalageSlide(n) {
+  if (!slides.length) return;
+
+  let idx, courant, suivant;
+  const decalageSlideAnimClass = { forcourant: '', forsuivant: '' };
+  let slideTextAnimClass = '';
+
+  if (n > slideIndex) {
+    if (n >= slides.length) n = 0;
+    decalageSlideAnimClass.forcourant = 'decalageGaucheSlideCourante';
+    decalageSlideAnimClass.forsuivant = 'decalageGaucheSlideSuivante';
+    slideTextAnimClass = 'decalageTexteHaut';
+  } else if (n < slideIndex) {
+    if (n < 0) n = slides.length - 1;
+    decalageSlideAnimClass.forcourant = 'decalageDroiteSlideCourante';
+    decalageSlideAnimClass.forsuivant = 'decalageDroiteSlideSuivante';
+    slideTextAnimClass = 'decalageTexteBas';
+  } else {
+    return;
+  }
+
+  suivant = slides[n];
+  courant = slides[slideIndex];
+
+  for (idx = 0; idx < slides.length; idx++) {
+    slides[idx].className = 'slide';
+    slides[idx].style.opacity = 0;
+    points[idx]?.classList.remove('active');
+  }
+
+  courant.classList.add(decalageSlideAnimClass.forcourant);
+  suivant.classList.add(decalageSlideAnimClass.forsuivant);
+
+  points[n]?.classList.add('active');
+  slideIndex = n;
+
+  if (texteDescriptif) {
+    texteDescriptif.style.display = 'none';
+    texteDescriptif.className = 'texteDescriptif ' + slideTextAnimClass;
+    texteDescriptif.textContent =
+      slides[n].querySelector('.texteDescriptif')?.textContent || '';
+    texteDescriptif.style.display = 'block';
+  }
 }
 
-var timer = null;
 function setTimer() {
-    timer = setInterval(function () {
-        decalage(1);
-    },5900)
+  clearInterval(timer);
+  timer = setInterval(() => decalage(1), 5900);
 }
 
-function ImagesInit(){
+function ImagesInit() {
+  slideIndex = 0;
+  slides = Array.from(document.getElementsByClassName('slide'));
 
-    slideIndex=0;
+  if (!slides.length) return;
 
-    slides=document.getElementsByClassName("slide");
+  slides[slideIndex].style.opacity = 1;
 
-    slides[slideIndex].style.opacity=1;
+  texteDescriptif = document.querySelector('.Descriptif .texteDescriptif');
+  if (texteDescriptif) {
+    texteDescriptif.textContent =
+      slides[slideIndex].querySelector('.texteDescriptif')?.textContent || '';
+  }
 
-    texteDescriptif = document.querySelector(".Descriptif .texteDescriptif");
+  points = [];
+  const carouselPoint = document.getElementById('carouselPoint');
+  if (!carouselPoint) return;
 
-    texteDescriptif.innerText=slides[slideIndex].querySelector(".texteDescriptif").innerText;
+  carouselPoint.innerHTML = '';
 
-    points=[];
-	
-    var carouselPoint = document.getElementById("carouselPoint");
+  slides.forEach((_, idx) => {
+    const point = document.createElement('span');
+    point.classList.add('points');
+    point.addEventListener('click', () => decalageSlide(idx));
+    carouselPoint.appendChild(point);
+    points.push(point);
+  });
 
-    for (var idx=0; idx<slides.length;idx++){
-        var point=document.createElement("span");
-        point.classList.add("points");
-
-        point.setAttribute("onClick", "decalageSlide("+idx+")");
-
-        carouselPoint.append(point);
-        points.push(point);
-    }
-
-    points[slideIndex].classList.add("active");
+  points[slideIndex]?.classList.add('active');
 }

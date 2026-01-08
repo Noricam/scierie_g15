@@ -15,6 +15,6 @@
 
 	</div>
 
-	<div id="carouselPoint"><div>
+	<div id="carouselPoint"></div>
 
 </div>
