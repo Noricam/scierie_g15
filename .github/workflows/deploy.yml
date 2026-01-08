@@ -24,17 +24,13 @@ jobs:
             ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
           fi
 
-      - name: Remote sanity checks
+      - name: Rsync dry-run
         run: |
-          ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_ed25519 \
-            -o BatchMode=yes -o StrictHostKeyChecking=yes \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            'set -e;
-            echo "USER=$(whoami)";
-            echo "SHELL=$SHELL";
-            echo -n "RSYNC="; command -v rsync || echo "NOT_FOUND";
-            ls -ld /var/www/scierie;
-            test -w /var/www/scierie && echo "WRITABLE" || echo "NOT_WRITABLE"'
+          rsync -az --delete --dry-run --itemize-changes \
+            --rsync-path="/usr/bin/rsync" \
+            --exclude ".git/" --exclude ".github/" \
+            -e "ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_ed25519 -o BatchMode=yes" \
+            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/scierie/
 
       - name: Deploy with rsync
         run: |
