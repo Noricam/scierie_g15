@@ -12,6 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
@@ -23,12 +24,20 @@ jobs:
             ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
           fi
 
+      - name: SSH test
+        run: |
+          ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_ed25519 \
+            -o BatchMode=yes \
+            -o StrictHostKeyChecking=yes \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo OK"
+
       - name: Deploy with rsync
         run: |
-          rsync -az --delete \
+          rsync -az --delete --stats \
             --exclude ".git/" \
             --exclude ".github/" \
             --exclude ".env" \
             --exclude "config.local.php" \
-            -e "ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_ed25519" \
+            -e "ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_ed25519 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -o BatchMode=yes" \
             ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/scierie/
+
