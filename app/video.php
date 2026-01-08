@@ -33,7 +33,7 @@ require __DIR__ . '/bootstrap.php';
 			<?php endif; ?>
 		</ul>
 	
-		<img src="./images/scierie.gif" alt="Logo de la scierie" style="width:70px; margin:5px;">
+		<img src="/images/scierie.gif" alt="Logo de la scierie" style="width:70px; margin:5px;">
 
 	</nav>
 
@@ -86,7 +86,7 @@ require __DIR__ . '/bootstrap.php';
 	<footer id="footer">
 		<ul class="footer-links">
 			<li class="footer-item">©Projet 3iL</li>
-			<li class="footer-item"><a href="#" target="_blank"><img id="logo" src="images/facebook.png" loading="lazy" decoding="async"></a></li>
+			<li class="footer-item"><a href="#" target="_blank"><img id="logo" src="/images/facebook.png" loading="lazy" decoding="async"></a></li>
 			<li class="footer-item">Site test</li>
 		</ul>
 	</footer>

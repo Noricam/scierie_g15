@@ -26,6 +26,6 @@ foreach ($produits as $p) {
   echo "<article class='produit'>";
   echo "  <h2 class='titre'>{$titre}</h2>";
   echo "  <p class='texte'>{$descr}</p>";
-  echo "  <img class='image' src='images/{$img}' alt='' loading='lazy' decoding='async'>";
+  echo "  <img class='image' src='/images/{$img}' alt='' loading='lazy' decoding='async'>";
   echo "</article>";
 }

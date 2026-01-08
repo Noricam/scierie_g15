@@ -16,9 +16,9 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 	<title>TEST GREEN IT</title>
 
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="content/administration.css">
-	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/style.css">
+	<link rel="stylesheet" href="/content/administration.css">
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -42,7 +42,7 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 		<?php endif; ?>
     </ul>
 	
-	<img src="./images/scierie.gif" alt="Logo de la scierie" style="width:70px; margin:5px;">
+	<img src="/images/scierie.gif" alt="Logo de la scierie" style="width:70px; margin:5px;">
 
 </nav>
 
@@ -214,7 +214,7 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 <footer id="footer">
 	<ul class="footer-links">
     	<li class="footer-item">©Projet 3iL</li>
-    	<li class="footer-item"><a href="#" target="_blank"><img id="logo" src="images/facebook.png" loading="lazy" decoding="async"></a></li>
+    	<li class="footer-item"><a href="#" target="_blank"><img id="logo" src="/images/facebook.png" loading="lazy" decoding="async"></a></li>
     	<li class="footer-item">Site test</li>
 	</ul>
 </footer>

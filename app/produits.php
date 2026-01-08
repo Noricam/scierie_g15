@@ -10,7 +10,7 @@ require __DIR__ . '/bootstrap.php';
 	<meta name="description" content="page d'administration">
 	
 	<title>TRUC</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="/style.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 
@@ -35,7 +35,7 @@ require __DIR__ . '/bootstrap.php';
 		<?php endif; ?>
     </ul>
 	
-	<img src="./images/scierie.gif" alt="Logo de la scierie" style="width:70px; margin:5px;">
+	<img src="/images/scierie.gif" alt="Logo de la scierie" style="width:70px; margin:5px;">
 
 </nav>
 
@@ -76,7 +76,7 @@ require __DIR__ . '/bootstrap.php';
 <footer id="footer">
 	<ul class="footer-links">
     	<li class="footer-item">©Projet 3iL</li>
-    	<li class="footer-item"><a href="#" target="_blank"><img id="logo" src="images/facebook.png" loading="lazy" decoding="async"></a></li>
+    	<li class="footer-item"><a href="#" target="_blank"><img id="logo" src="/images/facebook.png" loading="lazy" decoding="async"></a></li>
     	<li class="footer-item">Site test</li>
 	</ul>
 </footer>
