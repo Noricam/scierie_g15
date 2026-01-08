@@ -6,7 +6,7 @@ let timer = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data.xml', { cache: 'no-store' });
+    const res = await fetch('/data.xml', { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status} sur data.xml`);
 
     const xmlText = await res.text();

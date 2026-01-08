@@ -3,7 +3,7 @@
   if (!container) return;
 
   try {
-    const res = await fetch('controleur/initFormListeProduits.php', {
+    const res = await fetch('/app/controleur/initFormListeProduits.php', {
       method: 'GET',
       credentials: 'same-origin',
       headers: { 'Accept': 'text/html' },
