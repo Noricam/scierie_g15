@@ -1,23 +1,27 @@
 ﻿<?php
 require __DIR__ . '/bootstrap.php';
+
+function e(string $s): string {
+  return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+}
+
+$errCnx = $_SESSION['errCnx'] ?? '';
+$creationOk = $_SESSION['creationOk'] ?? '';
+$creationNok = $_SESSION['creationNok'] ?? '';
+$errMdp = $_SESSION['errMdp'] ?? '';
+$errId = $_SESSION['errId'] ?? '';
+
+if (!isset($_SESSION['expire_blocage']) || time() >= $_SESSION['expire_blocage']) {
+  $_SESSION['errCnx'] = '';
+}
+$_SESSION['creationOk'] = '';
+$_SESSION['creationNok'] = '';
+$_SESSION['errMdp'] = '';
+$_SESSION['errId'] = '';
 ?>
 
-<span class="err">
-    <?php
-        if (isset($_SESSION['errCnx'])) {
-            // Protection XSS sur le message d'erreur
-            echo htmlspecialchars($_SESSION['errCnx'], ENT_QUOTES, 'UTF-8');
-            // On n'efface le message que si l'utilisateur n'est pas en train d'être bloqué
-            if (!isset($_SESSION['expire_blocage']) || time() >= $_SESSION['expire_blocage']) {
-                $_SESSION['errCnx'] = "";
-            }
-        }
-    ?>
-</span>
 <!DOCTYPE html>
-
 <html lang="fr">
-
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,31 +35,28 @@ require __DIR__ . '/bootstrap.php';
 </head>
 
 <body>
-
-	<section>
 <!--*************** MENU ***************-->
-<nav class="navbar">
-	<button class="menu-btn" type="button" aria-label="Ouvrir/fermer le menu" aria-expanded="false">
-		<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-		<path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" fill="none"/>
-		</svg>
-  	</button>
-   <ul class="nav-links" id="navLinks">
-      	<li class="nav-item"><a href="index.php">ACCUEIL</a></li>
-      	<li class="nav-item"><a href="produits.php">LES PRODUITS</a></li>
-	  	<li class="nav-item"><a href="video.php">VIDEO</a></li>
-		<li class="nav-item"><a href="contact.php">NOUS CONTACTER</a></li>
-		<?php if (isset($_SESSION['id'])): ?>
-			<li class="nav-item"><a href="administration.php">ADMINISTRATION</a></li>
-			<li class="nav-item"><a href="deconnexion.php">DECONNEXION</a></li>
-		<?php else: ?>
-			<li class="nav-item"><a href="connexion.php">CONNEXION</a></li>
-		<?php endif; ?>
-    </ul>
+	<nav class="navbar">
+		<button class="menu-btn" type="button" aria-label="Ouvrir/fermer le menu" aria-expanded="false">
+			<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+			<path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" fill="none"/>
+			</svg>
+		</button>
+		<ul class="nav-links" id="navLinks">
+			<li class="nav-item"><a href="index.php">ACCUEIL</a></li>
+			<li class="nav-item"><a href="produits.php">LES PRODUITS</a></li>
+			<li class="nav-item"><a href="video.php">VIDEO</a></li>
+			<li class="nav-item"><a href="contact.php">NOUS CONTACTER</a></li>
+			<?php if (isset($_SESSION['id'])): ?>
+				<li class="nav-item"><a href="administration.php">ADMINISTRATION</a></li>
+				<li class="nav-item"><a href="deconnexion.php">DECONNEXION</a></li>
+			<?php else: ?>
+				<li class="nav-item"><a href="connexion.php">CONNEXION</a></li>
+			<?php endif; ?>
+		</ul>
 
-	<img src="/images/scierie.gif" alt="Logo de la scierie" style="width:70px; margin:5px;">
-
-</nav>
+		<img src="/images/scierie.gif" alt="Logo de la scierie" style="width:70px; margin:5px;">
+	</nav>
 
 <!-- Requete JQuery initiale supprimée pour améliorer la performance et l'accessibilité
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -86,107 +87,98 @@ require __DIR__ . '/bootstrap.php';
   });
 </script>
 <!--*************** END MENU ***************-->
-	</section>
-	
-	<div class="forms">
+	<main class="forms" role="main">
+    <ul class="onglets" role="tablist" aria-label="Connexion / Inscription">
+      <li class="onglet active" role="presentation">
+        <a href="#login" role="tab" aria-controls="login" aria-selected="true">Connexion</a>
+      </li>
+      <li class="onglet" role="presentation">
+        <a href="#sinscrire" role="tab" aria-controls="sinscrire" aria-selected="false">Inscription</a>
+      </li>
+    </ul>
 
-		<ul class="onglets">
-		    <li class="onglet active"><a href="#login">Connexion</a></li>
-		    <li class="onglet"><a href="#sinscrire">Inscription</a></li>
+    <!-- Messages -->
+    <?php if ($errCnx || $creationOk || $creationNok): ?>
+      <p class="err" aria-live="polite">
+        <?= e($errCnx ?: ($creationOk ?: $creationNok)) ?>
+      </p>
+    <?php endif; ?>
+
+    <form action="controleur/traitementFormConnexion.php" method="POST" id="login">
+      <h1>Connexion</h1>
+
+      <div class="input-field">
+        <label for="idUtil">Identifiant</label>
+        <input type="text" name="idUtil" id="idUtil" autocomplete="username" required>
+
+        <label for="mdpUtil">Mot de passe</label>
+        <input type="password" name="mdpUtil" id="mdpUtil" autocomplete="current-password" required>
+
+        <button type="submit" class="button">Se connecter</button>
+      </div>
+    </form>
+
+    <form action="controleur/traitementFormInscription.php" id="sinscrire" method="POST" hidden>
+      <h1>S'inscrire</h1>
+
+      <?php if ($errMdp || $errId): ?>
+        <p class="err" aria-live="polite"><?= e($errMdp ?: $errId) ?></p>
+      <?php endif; ?>
+
+      <div class="input-field">
+        <label for="idUtilCreation">Identifiant</label>
+        <input type="text" name="idUtilCreation" id="idUtilCreation" autocomplete="username" required>
+
+        <label for="pwdCreation">Mot de passe</label>
+        <input type="password" name="pwdCreation" id="pwdCreation" autocomplete="new-password" required>
+
+        <label for="pwdBis">Confirmez le mot de passe</label>
+        <input type="password" name="pwdBis" id="pwdBis" autocomplete="new-password" required>
+
+        <button type="submit" class="button">S'inscrire</button>
+      </div>
+    </form>
+  </main>
+
+<!--*************** PIED DE PAGE ***************-->
+	<footer id="footer">
+		<ul class="footer-links">
+			<li class="footer-item">©Projet 3iL</li>
+			<li class="footer-item"><a href="https://www.facebook.com/Scierie-du-Fargal-613509152159633/" target="_blank"><img id="logo" src="/images/facebook.png" alt="Logo facebook" loading="lazy" decoding="async"></a></li>
+			<li class="footer-item">Site test</li>
 		</ul>
-
-		<form action="controleur/traitementFormConnexion.php" method="GET" id="login">
-			<h1>Connexion</h1>
-            <span class="err">
-				<?php
-					if (isset($_SESSION['errCnx'])) {
-						echo $_SESSION['errCnx'];
-						$_SESSION['errCnx'] = "";
-					}
-					
-					if (isset($_SESSION['creationOk'])) {
-						echo $_SESSION['creationOk'];
-						$_SESSION['creationOk'] = "";
-					}
-					
-					if (isset($_SESSION['creationNok'])) {
-						echo $_SESSION['creationNok'];
-						$_SESSION['creationNok'] = "";
-					}
-					
-				?>
-            </span>
-			<div class="input-field">
-
-				<label for="idUtil">Identifiant</label>
-				<input type="text" placeholder="Entrer le nom d'utilisateur" name="idUtil" id="idUtil" required>
-
-				<label for="mdpUtil">Mot de Passe</label> 
-				<input type="password" placeholder="Entrer le mot de passe" name="mdpUtil" id="mdpUtil" required>
-
-				<input type="submit" value="Se connecter" class="button">
-				
-
-			</div>
-		</form>
-
-		<form action="controleur/traitementFormInscription.php" id="sinscrire" method="GET">
-			<h1>S'inscrire</h1>
-			<span class="err">
-				<?php
-					if (isset($_SESSION['errMdp'])) {
-						echo $_SESSION['errMdp'];
-						$_SESSION['errMdp'] = "";
-					}
-					if (isset($_SESSION['errId'])) {
-						echo $_SESSION['errId'];
-						$_SESSION['errId'] = "";
-					}
-				?>
-            </span>
-			<div class="input-field">
-	            <label for="idUtilCreation">Identifiant</label> 
-	            <input type="text" placeholder="Choisir un nom d'utilisateur" name="idUtilCreation" id="idUtilCreation" required>
-
-	            <label for="pwdCreation">Mot de Passe</label> 
-	            <input type="password" placeholder="Choisir un mot de passe" name="pwdCreation" id="pwdCreation" required>
-
-	            <label for="pwdBis">Confirmez le Mot de Passe</label> 
-	            <input type="password" placeholder="Ressaisir le mot de passe" name="pwdBis" id="pwdBis" required>
-	            
-	            <input type="submit" value="S'inscrire" class="button" />
-			</div>
-	    </form>
-	</div>
-
-<!--*************** PIED DE PAGE ***************-->
-<footer id="footer">
-	<ul class="footer-links">
-    	<li class="footer-item">©Projet 3iL</li>
-    	<li class="footer-item"><a href="https://www.facebook.com/Scierie-du-Fargal-613509152159633/" target="_blank"><img id="logo" src="/images/facebook.png" alt="Logo facebook" loading="lazy" decoding="async"></a></li>
-    	<li class="footer-item">Site test</li>
-	</ul>
-</footer>
+	</footer>
 <!--*************** PIED DE PAGE ***************-->
 
-	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-	<script type="text/javascript">
-	$(document).ready(function(){
-	      $('.onglet a').on('click', function (e) {
-	      e.preventDefault();
-	       
-	      $(this).parent().addClass('active');
-	      $(this).parent().siblings().removeClass('active');
-	       
-	      var href = $(this).attr('href');
-	      $('.forms > form').hide();
-	      $(href).fadeIn(333);
-	    });
-	});
-</script>
+	<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabs = document.querySelectorAll('.onglet a');
+      const forms = document.querySelectorAll('.forms > form');
 
+      function show(id) {
+        forms.forEach(f => {
+          const isTarget = ('#' + f.id) === id;
+          f.hidden = !isTarget;
+        });
+
+        tabs.forEach(a => {
+          const active = a.getAttribute('href') === id;
+          a.parentElement.classList.toggle('active', active);
+          a.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+      }
+
+      tabs.forEach(a => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          show(a.getAttribute('href'));
+        });
+      });
+
+      show('#login');
+    });
+  </script>
 </body>
-
 </html>
 
 
