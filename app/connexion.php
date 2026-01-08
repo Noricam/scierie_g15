@@ -88,77 +88,10 @@ require __DIR__ . '/bootstrap.php';
 <!--*************** END MENU ***************-->
 	</section>
 	
-	<div class="forms">
-
-		<ul class="onglets">
+	<ul class="onglets">
 		    <li class="onglet active"><a href="#login">Connexion</a></li>
 		    <li class="onglet"><a href="#sinscrire">Inscription</a></li>
 		</ul>
-
-		<form action="controleur/traitementFormConnexion.php" method="GET" id="login">
-			<h1>Connexion</h1>
-            <span class="err">
-				<?php
-					if (isset($_SESSION['errCnx'])) {
-						echo $_SESSION['errCnx'];
-						$_SESSION['errCnx'] = "";
-					}
-					
-					if (isset($_SESSION['creationOk'])) {
-						echo $_SESSION['creationOk'];
-						$_SESSION['creationOk'] = "";
-					}
-					
-					if (isset($_SESSION['creationNok'])) {
-						echo $_SESSION['creationNok'];
-						$_SESSION['creationNok'] = "";
-					}
-					
-				?>
-            </span>
-			<div class="input-field">
-
-				<label for="idUtil">Identifiant</label>
-				<input type="text" placeholder="Entrer le nom d'utilisateur" name="idUtil" id="idUtil" required>
-
-				<label for="mdpUtil">Mot de Passe</label> 
-				<input type="password" placeholder="Entrer le mot de passe" name="mdpUtil" id="mdpUtil" required>
-
-				<input type="submit" value="Se connecter" class="button">
-				
-
-			</div>
-		</form>
-
-		<form action="controleur/traitementFormInscription.php" id="sinscrire" method="GET">
-			<h1>S'inscrire</h1>
-			<span class="err">
-				<?php
-					if (isset($_SESSION['errMdp'])) {
-						echo $_SESSION['errMdp'];
-						$_SESSION['errMdp'] = "";
-					}
-					if (isset($_SESSION['errId'])) {
-						echo $_SESSION['errId'];
-						$_SESSION['errId'] = "";
-					}
-				?>
-            </span>
-			<div class="input-field">
-	            <label for="idUtilCreation">Identifiant</label> 
-	            <input type="text" placeholder="Choisir un nom d'utilisateur" name="idUtilCreation" id="idUtilCreation" required>
-
-	            <label for="pwdCreation">Mot de Passe</label> 
-	            <input type="password" placeholder="Choisir un mot de passe" name="pwdCreation" id="pwdCreation" required>
-
-	            <label for="pwdBis">Confirmez le Mot de Passe</label> 
-	            <input type="password" placeholder="Ressaisir le mot de passe" name="pwdBis" id="pwdBis" required>
-	            
-	            <input type="submit" value="S'inscrire" class="button" />
-			</div>
-	    </form>
-	</div>
-
 <!--*************** PIED DE PAGE ***************-->
 <footer id="footer">
 	<ul class="footer-links">
