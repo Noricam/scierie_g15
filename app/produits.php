@@ -9,7 +9,9 @@ require __DIR__ . '/bootstrap.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="page d'administration">
 	
-	<title>TRUC</title>
+	<title>PRODUITS</title>
+	<link rel="icon" href="/images/Scie-ico.ico" sizes="any">
+	<link rel="icon" type="image/png" href="/images/Scie-ico.png" sizes="32x32">
 	<link rel="stylesheet" href="/style.css">
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 </head>

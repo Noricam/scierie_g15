@@ -13,9 +13,10 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 	<meta name="description" content="page d'administration">
 
 
-	<title>TEST GREEN IT</title>
+	<title>ADMINISTRATION</title>
 
-	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="/images/Scie-ico.ico" sizes="any">
+	<link rel="icon" type="image/png" href="/images/Scie-ico.png" sizes="32x32">
 	<link rel="stylesheet" href="/style.css">
 	<link rel="stylesheet" href="/content/administration.css">
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">

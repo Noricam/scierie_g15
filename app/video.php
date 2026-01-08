@@ -5,10 +5,13 @@ require __DIR__ . '/bootstrap.php';
 
 <html lang="fr">
 	<head>
-		<title>TRUC</title>
+		<title>VIDEO</title>
 		<meta charset="utf-8">
   		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="video">
+
+		<link rel="icon" href="/images/Scie-ico.ico" sizes="any">
+		<link rel="icon" type="image/png" href="/images/Scie-ico.png" sizes="32x32">
 		<link rel="stylesheet" href="/style.css">
 		<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 	</head>
