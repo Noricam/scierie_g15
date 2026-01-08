@@ -25,7 +25,7 @@ session_start();
 		<path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" fill="none"/>
 		</svg>
   	</button>
-   <ul class="nav-links">
+   <ul class="nav-links" id="navLinks">
       	<li class="nav-item"><a href="index.php">ACCUEIL</a></li>
       	<li class="nav-item"><a href="produits.php">LES PRODUITS</a></li>
 	  	<li class="nav-item"><a href="video.php">VIDEO</a></li>
