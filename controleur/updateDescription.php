@@ -1,25 +1,43 @@
 <?php
+session_start();
+require("../metier/DB_connector.php");
 
-	/* Connexion à la bdd */
-	$con = mysqli_connect("localhost", "root", "", "scierie");
+// Vérification de la session pour s'assurer que l'utilisateur est autorisé
+if (!isset($_SESSION['id'])) {
+    header("Location: ../connexion.php");
+    exit();
+}
 
-	/* Gestion des erreurs de connexion */
-	if (mysqli_connect_errno($con)){
-		echo "Erreur de connexion: " . mysqli_connect_error();
-	}
-	// Encodage utf8
-	mysqli_set_charset($con,"utf8");
-	$req = "UPDATE home SET home.desc='".$_POST["areaModifAccueil"]."' WHERE id=1";
+// Vérification de la présence de la donnée à mettre à jour
+if (isset($_POST["areaModifAccueil"])) {
+    
+    try {
+        // Utilisation du connecteur existant du projet 
+        $cnx = new DB_Connector();
+        $jeton = $cnx->openConnexion();
 
-	/* Gestion des erreurs de requête sql */
-	if (!mysqli_query($con, $req)){
-		echo "Echec de l'update" . mysqli_error($con);
-	}
-	$requete = $con->query($req);
+        // Requête préparée pour sécuriser l'entrée utilisateur 
+        // Note : Dans scierie.sql, la table est 'home' et la colonne est 'descr'
+        $req = "UPDATE home SET descr = ? WHERE id = 1";
+        
+        $stmt = $jeton->prepare($req);
+        
+        // Exécution sécurisée : la donnée de $_POST n'est jamais concaténée directement
+        if ($stmt->execute([$_POST["areaModifAccueil"]])) {
+            $_SESSION['msgModifOk'] = "Description mise à jour avec succès.";
+        } else {
+            $_SESSION['msgModifNok'] = "Erreur lors de la mise à jour.";
+        }
 
-	
-	/* Déconnexion de la bdd */
-	mysqli_close($con);
-	header('Location: ../index.php'); 
+        $cnx->closeConnexion();
+        
+    } catch (Exception $e) {
+        // En production, il vaut mieux logger l'erreur plutôt que de l'afficher
+        $_SESSION['msgModifNok'] = "Erreur système lors de la modification.";
+    }
+}
 
+// Redirection vers la page d'accueil ou d'administration
+header('Location: ../index.php'); 
+exit();
 ?>
