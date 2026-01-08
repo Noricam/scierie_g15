@@ -54,7 +54,6 @@ session_start();
 
   	<main>
 		<div class="video-container" style="text-align:center;">
-		<!-- Autoplay retiré (gros gain). Version nocookie + lazy -->
 		<iframe
 			width="500"
 			height="281"
