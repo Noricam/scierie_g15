@@ -43,7 +43,7 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 		<?php endif; ?>
     </ul>
 	
-	<img src="./images/scierie.gif" alt="Logo de la scierie" width="70" height="70">
+	<img src="./images/scierie.gif" alt="Logo de la scierie" style="width:70px; margin:5px;">
 
 </nav>
 
