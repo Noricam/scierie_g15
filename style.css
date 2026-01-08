@@ -161,11 +161,11 @@ li {
     color:green;	
 }
 
-/*img, video, iframe {
+img, video, iframe {
   max-width: 100%;
   height: auto;
   display: block;
-}*/
+}
 
 html, body {
   max-width: 100%;
