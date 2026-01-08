@@ -38,7 +38,7 @@
                 $description .= "<li class='main-item'><p class='texte'>" . htmlspecialchars($resultat['descr'], ENT_QUOTES, 'UTF-8') . "</p></li>";
             }
             if($resultat['img'] != ''){
-                $description .= "<li class='main-item'><img class='image' src='images/" . htmlspecialchars($resultat['img'], ENT_QUOTES, 'UTF-8') . "'></li>";
+                $description .= "<li class='main-item'><img class='image' src='/images/" . htmlspecialchars($resultat['img'], ENT_QUOTES, 'UTF-8') . "'></li>";
             }
         }
         $description .= "</ul>";
