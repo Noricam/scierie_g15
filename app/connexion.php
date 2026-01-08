@@ -1,6 +1,19 @@
 ﻿<?php
 require __DIR__ . '/bootstrap.php';
 ?>
+
+<span class="err">
+    <?php
+        if (isset($_SESSION['errCnx'])) {
+            // Protection XSS sur le message d'erreur
+            echo htmlspecialchars($_SESSION['errCnx'], ENT_QUOTES, 'UTF-8');
+            // On n'efface le message que si l'utilisateur n'est pas en train d'être bloqué
+            if (!isset($_SESSION['expire_blocage']) || time() >= $_SESSION['expire_blocage']) {
+                $_SESSION['errCnx'] = "";
+            }
+        }
+    ?>
+</span>
 <!DOCTYPE html>
 
 <html lang="fr">
