@@ -73,15 +73,11 @@ require __DIR__ . '/bootstrap.php';
 
 <!--*************** END MENU ***************-->
 	<section>
-	<?php 
-		require __DIR__ . "/includes/slider.php";
-	?>
+  		<?php require __DIR__ . "/includes/slider.php"; ?>
 	</section>
-	<main>
-	<?php
-		require __DIR__ . "/controleur/initIndex.php";
-	?>
-	</main>
+<!-- 	<main>
+		<?php require __DIR__ . "/controleur/initIndex.php"; ?>
+	</main> -->
 <!--*************** PIED DE PAGE ***************-->
 <footer id="footer">
 	<ul class="footer-links">
