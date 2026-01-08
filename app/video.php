@@ -72,6 +72,7 @@ require __DIR__ . '/bootstrap.php';
   	<main>
 		<div class="video-container" style="text-align:center;">
 		<iframe
+			class="video-iframe"
 			src="https://www.youtube-nocookie.com/embed/dbHXPnhCicI"
 			title="Vidéo de présentation"
 			loading="lazy"
