@@ -31,14 +31,14 @@
         if($resultat['descr'] != '' && $resultat['img'] != ''){
             $description .= "<li class ='main-item'><ul class ='sub-list'>";
             $description .= "<li class='sub-item'><p class='texte'>" . htmlspecialchars($resultat['descr'], ENT_QUOTES, 'UTF-8') . "</p></li>";
-            $description .= "<li class='sub-item'><img class='image' src='/images/" alt="image" . htmlspecialchars($resultat['img'], ENT_QUOTES, 'UTF-8') . "'></li>";
+            $description .= "<li class='sub-item'><img class='image' src='/images/" . htmlspecialchars($resultat['img'], ENT_QUOTES, 'UTF-8') . "'></li>";
             $description .= "</ul></li>";
         } else {
             if($resultat['descr'] != ''){
                 $description .= "<li class='main-item'><p class='texte'>" . htmlspecialchars($resultat['descr'], ENT_QUOTES, 'UTF-8') . "</p></li>";
             }
             if($resultat['img'] != ''){
-                $description .= "<li class='main-item'><img class='image' src='/images/" alt="images" . htmlspecialchars($resultat['img'], ENT_QUOTES, 'UTF-8') . "'></li>";
+                $description .= "<li class='main-item'><img class='image' alt=" . htmlspecialchars($resultat['titre'], ENT_QUOTES, 'UTF-8') . " src='/images/" . htmlspecialchars($resultat['img'], ENT_QUOTES, 'UTF-8') . "'></li>";
             }
         }
         $description .= "</ul>";
