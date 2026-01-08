@@ -172,12 +172,6 @@ html, body {
   overflow-x: hidden;
 }
 
-.slider, .slider img {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-}
-
 /* Desktop: menu visible */
 .nav-links {
   display: flex;
