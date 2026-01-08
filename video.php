@@ -70,8 +70,8 @@ session_start();
   	<main>
 		<div class="video-container" style="text-align:center;">
 		<iframe
-			width="800"
-			height="600"
+			width="600"
+			height="800"
 			src="https://www.youtube-nocookie.com/embed/dbHXPnhCicI"
 			title="Vidéo de présentation"
 			loading="lazy"
