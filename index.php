@@ -41,8 +41,22 @@ session_start();
 	<img src="./images/scierie.gif" style="width:70px; margin:5px;">
 </nav>
 
-
+<!-- Requete JQuery initiale supprimée pour améliorer la performance et l'accessibilité
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+
+		$('.menu').click(function(){
+			
+			$('ul').toggleClass('active');
+		})
+	})
+
+</script>
+-->
+
+<!-- Remplacement par un JavaScript natif pour une meilleure performance et accessibilité -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const btn = document.querySelector('.menu-btn');
@@ -55,6 +69,7 @@ session_start();
     });
   });
 </script>
+
 <!--*************** END MENU ***************-->
 	<section>
 	<?php 
