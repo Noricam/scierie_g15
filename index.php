@@ -12,7 +12,6 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 
@@ -20,7 +19,6 @@ session_start();
 <!--*************** MENU ***************-->
 <nav class="navbar">
 	<button class="menu-btn" type="button" aria-label="Ouvrir/fermer le menu" aria-expanded="false">
-		<!-- SVG burger (pas besoin Font Awesome) -->
 		<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
 		<path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" fill="none"/>
 		</svg>
