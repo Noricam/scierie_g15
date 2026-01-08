@@ -1,4 +1,4 @@
-
+<?php
 <div class="carousel">
 
 	<div class="slider" id="slider">
@@ -18,3 +18,4 @@
 	<div id="carouselPoint"><div>
 
 </div>
+?>
