@@ -12,6 +12,8 @@ require __DIR__ . '/bootstrap.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="index">
 	
+	<link rel="icon" href="/images/Scie-ico.ico" sizes="any">
+	<link rel="icon" type="image/png" href="/images/Scie-ico.png" sizes="32x32">
 	<link rel="stylesheet" href="/style.css">
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 </head>
@@ -72,12 +74,12 @@ require __DIR__ . '/bootstrap.php';
 <!--*************** END MENU ***************-->
 	<section>
 	<?php 
-		include"includes/slider.php";
+		require __DIR__ . "/includes/slider.php";
 	?>
 	</section>
 	<main>
 	<?php
-		include"controleur/initIndex.php";
+		require __DIR__ . "/controleur/initIndex.php";
 	?>
 	</main>
 <!--*************** PIED DE PAGE ***************-->
